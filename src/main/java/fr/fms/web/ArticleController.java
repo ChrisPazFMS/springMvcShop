@@ -25,7 +25,7 @@ public class ArticleController {
 			@RequestParam(name="keyword", defaultValue = "") String kw) {
 		
 		Page<Article> articles = articleRepository.findByBrandContains(kw, PageRequest.of(page, 5));
-	    articles.stream().forEach(System.out::println);
+	    //articles.stream().forEach(System.out::println);
 		
 		model.addAttribute("listArticle", articles.getContent());
 		model.addAttribute("keyword", kw);
@@ -37,10 +37,8 @@ public class ArticleController {
 	@GetMapping("/delete")
 	public String delete(Long id, int page, String keyword) {
 	System.out.println("value : " + id);
-		articleRepository.deleteById(id);
-		
+	articleRepository.deleteById(id);
 		return "redirect:/index?page="+page+"&keyword="+keyword;
-		
 	}
 
 }
