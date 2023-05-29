@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import fr.fms.dao.ArticleRepository;
@@ -39,6 +40,17 @@ public class ArticleController {
 	System.out.println("value : " + id);
 	articleRepository.deleteById(id);
 		return "redirect:/index?page="+page+"&keyword="+keyword;
+	}
+	
+	@GetMapping("/article")
+	public String article() {
+		return "article";
+	}
+	
+	@PostMapping("/save")
+	public String save(Article article) {
+		articleRepository.save(article);
+		return "article";
 	}
 
 }

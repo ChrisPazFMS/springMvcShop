@@ -21,10 +21,10 @@
         </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-            <a class="nav-item nav-link active" href="#">Accueil</a>
-            <a class="nav-item nav-link" href="#">Page 1</a>
-            <a class="nav-item nav-link" href="#">Page 2</a>
-            <a class="nav-item nav-link" href="#">Page 3</a>
+            <a class="nav-item nav-link active" th:href="@{/index}">Accueil</a>
+            <a class="nav-item nav-link" th:href="@{/article}">Article</a>
+<!--             <a class="nav-item nav-link" th:href="#">Page 2</a> -->
+<!--             <a class="nav-item nav-link" th:href="#">Page 3</a> -->
         </div>
     </div>
 </nav>
@@ -119,7 +119,6 @@
                 </div>
                 <div class="bottom-flap"></div>
             </div>
-            <div class="thanks-text"> <span>Merci de vous inscrire</span></div>
         </div>
         </div>
         
@@ -148,12 +147,15 @@
     </div>
    </div>
   </div>
+ </div>
+  
     <!-- Copyright -->
   </footer>
   
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="./javaScript/bootstrap.min.js"></script>
 <script src="./javaScript/subscrabe_animation.js"></script>
 
 </body>
