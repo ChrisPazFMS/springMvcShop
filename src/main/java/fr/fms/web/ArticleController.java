@@ -2,11 +2,14 @@ package fr.fms.web;
 
 
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -43,14 +46,16 @@ public class ArticleController {
 	}
 	
 	@GetMapping("/article")
-	public String article() {
+	public String article(Model model) {
+		model.addAttribute("article", new Article());
 		return "article";
 	}
 	
 	@PostMapping("/save")
-	public String save(Article article) {
+	public String save(Model model,@Valid Article article, BindingResult bindingResult) {
+		System.out.println("article" + article);
+		if(bindingResult.hasErrors()) return "article";
 		articleRepository.save(article);
 		return "article";
 	}
-
 }
