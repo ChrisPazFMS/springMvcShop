@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -16,7 +17,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
-@Data @NoArgsConstructor @AllArgsConstructor @ToString
+@Data @NoArgsConstructor @AllArgsConstructor @ToString 
 public class Article implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -24,12 +25,17 @@ public class Article implements Serializable {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotNull
-	@Size(min = 10, max = 50)
+//	@NotNull
+//	@Size(min = 5, max = 50)
 	private String brand;
-	//private String description;
 	
-	@DecimalMin("50")
-	private double price;
-
+//	@NotNull
+//	@Size(min = 10, max = 50)
+	private String description;
+	
+//	@DecimalMin("50")
+	private long price;
+	
+	@ManyToOne  
+	private Category category;
 }

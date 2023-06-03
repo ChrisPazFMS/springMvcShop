@@ -2,6 +2,9 @@ package fr.fms.web;
 
 
 
+import java.util.List;
+import java.util.Optional;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +18,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import fr.fms.dao.ArticleRepository;
+import fr.fms.dao.CategoryRepository;
 import fr.fms.entities.Article;
+import fr.fms.entities.Category;
 
 @Controller
 public class ArticleController {
@@ -23,14 +28,27 @@ public class ArticleController {
 	@Autowired
 	ArticleRepository articleRepository;
 	
+	@Autowired
+	CategoryRepository categoryRepository;
+	
 	@GetMapping("/index")
 	public String index(Model model,
-			@RequestParam(name="page" , defaultValue = "0")int page,
-			@RequestParam(name="keyword", defaultValue = "") String kw) {
+			@RequestParam(name="page", defaultValue = "0")int page,
+			@RequestParam(name="keyword", defaultValue = "") String kw,
+		@RequestParam(name="categoryId", defaultValue = "0") Long categoryId) {
 		
-		Page<Article> articles = articleRepository.findByBrandContains(kw, PageRequest.of(page, 5));
-	    //articles.stream().forEach(System.out::println);
+		Page<Article> articles = null;
+
+		if(categoryId > 0 ) {
+			
+			System.out.println("page IF : " + page);
+			articles = articleRepository.findByCategoryId(categoryId, PageRequest.of(page, 5));
+		}else {		
+			System.out.println("page ELSE : " + page);
+			articles = articleRepository.findByBrandContains(kw, PageRequest.of(page, 5));
+		}
 		
+		model.addAttribute("listCategory", categoryRepository.findAll());
 		model.addAttribute("listArticle", articles.getContent());
 		model.addAttribute("keyword", kw);
 		model.addAttribute("pages", new int[articles.getTotalPages()]);
@@ -40,7 +58,7 @@ public class ArticleController {
 	
 	@GetMapping("/delete")
 	public String delete(Long id, int page, String keyword) {
-	System.out.println("value : " + id);
+	//System.out.println("value : " + id);
 	articleRepository.deleteById(id);
 		return "redirect:/index?page="+page+"&keyword="+keyword;
 	}

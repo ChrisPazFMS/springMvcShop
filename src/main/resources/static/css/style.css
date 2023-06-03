@@ -1,0 +1,19 @@
+/* .active_click:active { */
+/*   background-color: blue; */
+/*   color: white; */
+/* } */
+
+.active_click:target {
+  background-color: blue;
+  color: white;
+}
+
+/* .active_click:visited { */
+/*   background-color: blue; */
+/*   color: red; */
+/* } */
+
+.active_click:hover {
+  background-color: blue;
+  color: white;
+}
