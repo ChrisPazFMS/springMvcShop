@@ -20,7 +20,7 @@
                 <a class="nav-link active_click" th:text="${category.name}" th:value="${category.name}" th:href="@{/index(categoryId=${category.id})}" id="pills-home-tab" aria-selected="true"></a>           
             </li>
         </ul>
-    
+        
             <div class="panel">
                 <div class="panel-heading bg-primary p-3">Liste des articles</div>
                 <div class="panel-body">
@@ -52,9 +52,11 @@
                      
                 <ul class="nav nav-pills" id="pills-tab" role="tablist">
                     <li class="nav-item"  th:class="${currentPage==status.index}?'active':''" th:each="page, status:${pages}">
-                        <a class="nav-link" th:href="@{/index(page=${status.index},keyword=${keyword})}" th:text="${status.index}" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true"></a>
+                        <a th:if="${categoryId==0}" class="nav-link" th:href="@{/index(page=${status.index},keyword=${keyword})}" th:text="${status.index}" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true"></a>
+                        <a th:if="${categoryId>0}" class="nav-link" th:href="@{/index(categoryId=${categoryId}, page=${status.index})}" th:text="${status.index}" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true"></a>
                     </li>
                 </ul>
+         
             </div>
         </div>
     </div>

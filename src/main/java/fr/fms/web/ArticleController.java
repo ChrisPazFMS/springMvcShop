@@ -35,16 +35,18 @@ public class ArticleController {
 	public String index(Model model,
 			@RequestParam(name="page", defaultValue = "0")int page,
 			@RequestParam(name="keyword", defaultValue = "") String kw,
-		@RequestParam(name="categoryId", defaultValue = "0") Long categoryId) {
+		@RequestParam(name="categoryId", defaultValue = "0") Long categoryId
+		) {
 		
 		Page<Article> articles = null;
 
 		if(categoryId > 0 ) {
 			
-			System.out.println("page IF : " + page);
+		
 			articles = articleRepository.findByCategoryId(categoryId, PageRequest.of(page, 5));
+		
 		}else {		
-			System.out.println("page ELSE : " + page);
+		
 			articles = articleRepository.findByBrandContains(kw, PageRequest.of(page, 5));
 		}
 		
@@ -53,6 +55,7 @@ public class ArticleController {
 		model.addAttribute("keyword", kw);
 		model.addAttribute("pages", new int[articles.getTotalPages()]);
 		model.addAttribute("currentPage", page);
+		model.addAttribute("categoryId", categoryId);
 		return "articles"; // cette méthode retourne au dispacterServlet
 	}
 	
